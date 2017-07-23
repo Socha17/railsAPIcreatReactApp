@@ -30,6 +30,30 @@ class App extends Component {
     this.fetch(`api/drinks/${id}`)
       .then(drink => this.setState({drink: drink}))
   }
+
+
+  postSomthing = () => {
+    let id = 9;
+    console.log("posting");
+    fetch(`api/ingredients/${id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body : id
+      })
+      .then(response => response.json())
+      .then(json => console.log(json))
+  }
+
+  getSomthing = () => {
+    console.log("getting");
+    fetch(`api/ingredients/ingredients_description`)
+      .then(response => response.json())
+      .then(json => console.log(json))
+  }
+
   render () {
     let {drinks, drink} = this.state
     return drinks
@@ -58,6 +82,8 @@ class App extends Component {
             </Segment.Group>
           }
           {drink.steps && <p>{drink.steps}</p>}
+          <button onClick={this.postSomthing}>post</button>
+          <button onClick={this.getSomthing}>Get</button>
         </Container>
       }
     </Container>
